@@ -14,3 +14,6 @@ We're going to build a browser-based version of the classic Etch-a-Sketch toy.
 The page will render a grid of square divs. Hovering the mouse over a square will change its background color, letting the user "draw" on the grid. A button will let the user set a new grid size (with a limit of 100x100 squares) which clears the sketch and generates a fresh grid.
 
 ## 💭 Reflections
+
+- Border-box vs content-box matters more than I realized: with the default `content-box`, a border is added *on top of* the width you set, not included in it. With 16+ elements each adding a fraction of a pixel of border, the rounding error stacked up and made the grid overflow its container at some zoom levels but not others (100%/150% happened to round evenly, in-between values didn't).
+- Fix: use `outline` instead of `border` for grid cell dividers. Outlines don't take up layout space at all, so they can't cause this kind of sizing/rounding overflow — worked perfectly here instead of fiddling with `box-sizing`.
