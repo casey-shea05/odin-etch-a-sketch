@@ -1,10 +1,13 @@
 // Create pixels (16 x 16 for now)
 const container = document.querySelector("#container");
-for (let i = 0; i < 256; i++) {
-  const pixel = document.createElement("div");
-  pixel.classList.add("pixel");
-  container.append(pixel);
+function createPixels() {
+  for (let i = 0; i < 256; i++) {
+    const pixel = document.createElement("div");
+    pixel.classList.add("pixel");
+    container.append(pixel);
+  }
 }
+createPixels();
 
 // Create colour function
 function colourPixel(element) {
@@ -29,3 +32,10 @@ container.addEventListener("mousemove", (event) => {
 
 // Use window here to track if they release mouse or go outside container
 window.addEventListener("mouseup", () => (isDrawing = false));
+
+// Reset function
+const reset = document.querySelector("#reset");
+reset.addEventListener("click", () => {
+  container.innerHTML = "";
+  createPixels();
+});
